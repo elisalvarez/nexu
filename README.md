@@ -64,93 +64,121 @@ DB_PASSWORD=SFPUdHeUG8cpt7nb
 Cómo iniciar tu proyecto
 
 ```bash
-cd nombre-proyecto
-npm some-command-to-run
+cd nexu
+composer install
+cp .env.example .env #Linux/macOS
+copy .env.example .env #Windows
+#Ajustar la configuración .env según tu entorno
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan cache:clear; php artisan route:clear; php artisan config:clear; php artisan view:clear; php artisan route:list
+php artisan serve
 ```
 
 <h2 id="routes">📍 API Endpoints</h2>
 
 Here you can list the main routes of your API, and what are their expected request bodies.
+
+http://localhost:8000/brands
 ​
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>GET /authenticate</kbd>     | retrieves user info see [response details](#get-auth-detail)
-| <kbd>POST /authenticate</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
+| <kbd>GET  /brands</kbd>     | Listar todas las marcas [response details](#get-all-brands)
+| <kbd>GET /brands/:id/models</kbd>     | Listado de todos los modelos de la marca [request details](#get-brand-model)
+|<kbd>POST  /brands</kbd>     | Añadir nuevas marca [response details](#post-brand)
+|<kbd>POST  /brands/:id/models</kbd>     | Añadir nuevo modelo a una marca [response details](#post-model-brand)
+|<kbd>PUT  /models/:id</kbd>     | Editar el precio promedio de un modelo [response details](#put-model)
+|<kbd>GET  /models?greater=380000&lower=400000</kbd>     | Listar de los modelos [response details](#get-models)
 
-<h3 id="get-auth-detail">GET /authenticate</h3>
-
-**RESPONSE**
-```json
-{
-  "name": "Fernanda Kipper",
-  "age": 20,
-  "email": "her-email@gmail.com"
-}
-```
-
-<h3 id="post-auth-detail">POST /authenticate</h3>
-
-**REQUEST**
-```json
-{
-  "username": "fernandakipper",
-  "password": "4444444"
-}
-```
+<h3 id="get-all-brands">GET  /brands</h3>
 
 **RESPONSE**
 ```json
-{
-  "token": "OwoMRHsaQwyAgVoc3OXmL1JhMVUYXGGBbCTK0GBgiYitwQwjf0gVoBmkbuyy0pSi"
-}
+[
+  {"id": 1, "nombre": "Acura", "average_price": 702109},
+  {"id": 2, "nombre": "Audi", "average_price": 630759},
+  {"id": 3, "nombre": "Bentley", "average_price": 3342575},
+  {"id": 4, "nombre": "BMW", "average_price": 858702},
+  {"id": 5, "nombre": "Buick", "average_price": 290371},
+  "..."
+]
 ```
 
-<h2 id="colab">🤝 Collaborators</h2>
+<h3 id="get-brand-model">GET /brands/:id/models</h3>
 
-Special thank you for all people that contributed for this project.
+**RESPONSE**
+```json
+[
+  {"id": 1, "name": "ILX", "average_price": 303176},
+  {"id": 2, "name": "MDX", "average_price": 448193},
+  {"id": 1264, "name": "NSX", "average_price": 3818225},
+  {"id": 3, "name": "RDX", "average_price": 395753},
+  {"id": 354, "name": "RL", "average_price": 239050}
+]
+```
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="#">
-        <img src="https://avatars.githubusercontent.com/u/61896274?v=4" width="100px;" alt="Fernanda Kipper Profile Picture"/><br>
-        <sub>
-          <b>Fernanda Kipper</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="#">
-        <img src="https://t.ctcdn.com.br/n7eZ74KAcU3iYwnQ89-ul9txVxc=/400x400/smart/filters:format(webp)/i490769.jpeg" width="100px;" alt="Elon Musk Picture"/><br>
-        <sub>
-          <b>Elon Musk</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="#">
-        <img src="https://miro.medium.com/max/360/0*1SkS3mSorArvY9kS.jpg" width="100px;" alt="Foto do Steve Jobs"/><br>
-        <sub>
-          <b>Steve Jobs</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
+<h3 id="post-brand">POST /brands</h3>
 
-<h2 id="contribute">📫 Contribute</h2>
+**RESPONSE**
+```json
+[
+    {
+        "status": true,
+        "message": "Marca registrada exitosamente.",
+        "brand": "ToyotasS"
+    }
+]
+```
 
-Here you will explain how other developers can contribute to your project. For example, explaining how can create their branches, which patterns to follow and how to open an pull request
+<h3 id="post-model-brand">POST /brands/:id/models</h3>
 
-1. `git clone https://github.com/Fernanda-Kipper/text-editor.git`
-2. `git checkout -b feature/NAME`
-3. Follow commit patterns
-4. Open a Pull Request explaining the problem solved or feature made, if exists, append screenshot of visual modifications and wait for the review!
+**RESPONSE**
+```json
+[
+   {
+        "status": true,
+        "message": "Marca registrada exitosamente.",
+        "model_name": "Toyota",
+        "model_id": 663
+    }
+]
+```
 
-<h3>Documentations that might help</h3>
 
-[📝 How to create a Pull Request](https://www.atlassian.com/br/git/tutorials/making-a-pull-request)
+<h3 id="put-model">PUT  /models/:id</h3>
 
-[💾 Commit pattern](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
+**RESPONSE**
+```json
+[
+    {
+    "status": true,
+    "message": "Modelo actualizado exitosamente.",
+    "model_name": "Bentayga",
+    "model_id": 1267
+    }
+]
+```
 
-🖖
+<h3 id="get-models">GET  /models?greater=380000&lower=400000</h3>
+
+**RESPONSE**
+```json
+[
+  {"id": 1264, "name": "NSX", "average_price": 3818225},
+  {"id": 3, "name": "RDX", "average_price": 395753}
+]
+```
+
+## Autores ✒️
+
+_Este proyecto fue desarrollado para un el puesto de Desarrollador Fullstack Sr._
+
+* **Elisa Álvarez Aguilar** - *Desarrolladora fullstack* - [github](https://github.com/elisalvarez) 
+
+## Agradecimiento por el Feedback 🌟
+
+* Valoro cualquier retroalimentación que puedan ofrecerme sobre mi candidatura y el proceso de selección. Esto me ayudará a mejorar y crecer profesionalmente. 📈🤓.
+* ¡Charlemos y tomemos un Café Virtual! ☕️:** ¡Estoy aquí para cualquier pregunta y para compartir ideas! 🍩🎉
+
+---
+⌨️ con ❤️ por [Elisa Álvarez](https://elisalvarez.com) 😊🖖
