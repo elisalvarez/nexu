@@ -93,7 +93,8 @@ class BrandsController extends Controller
             $model->name = $validated['name'];
             $model->average_price = $validated['average_price'];
             $model->brand_id = $id;
-            $model->sku = 123456;
+
+            $model->sku = $this->generateUniqueSku();
         
             $model->save();
             
@@ -101,7 +102,7 @@ class BrandsController extends Controller
                 'status' => true,
                 'message' => 'Modelo registrada exitosamente.',
                 'model_name' => $model->name,
-                'model_id' => $model->id
+                'model_id' => $model->sku
             ], 201);
   
         } catch (\Exception $th) {
@@ -111,6 +112,17 @@ class BrandsController extends Controller
             'error' => $th->getMessage()
           ], 500);
         }
+    }
+
+    private function generateUniqueSku()
+    {
+        $maxSku = Models::max('sku');
+
+        if ($maxSku === null) {
+            return 1;
+        }
+        
+        return $maxSku + 1;
     }
 
 }

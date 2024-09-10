@@ -1,11 +1,11 @@
 <h1 align="center" style="font-weight: bold;">Nexu Backend Coding Exercise 💻</h1>
 
 <p align="center">
- <a href="#tech">Technologies</a> • 
- <a href="#started">Getting Started</a> • 
+ <a href="#tech">Tecnologías</a> • 
+ <a href="#started">Primeros pasos</a> • 
   <a href="#routes">API Endpoints</a> •
- <a href="#colab">Collaborators</a> •
- <a href="#contribute">Contribute</a>
+ <a href="#autors">Autores</a> •
+ <a href="#feedbback">Agradecimientos</a>
 </p>
 
 <p>
@@ -169,13 +169,38 @@ http://localhost:8000/brands
 ]
 ```
 
-## Autores ✒️
+<h3>🧑‍💻 Pruebas </h3>
+
+Cómo ejecutar las pruebas. 
+
+```bash
+php artisan test
+```
+
+Para volver al entorno de los endpoints, después de aplicar las pruebas, ejecutar lo siguiente.
+
+```bash
+php artisan migrate:fresh --seed
+php artisan cache:clear; php artisan route:clear; php artisan config:clear; php artisan view:clear; php artisan route:list
+php artisan serve
+```
+<h3>🧑‍💻 Producción </h3>
+
+
+El sitio en producción de nuestra API REST está disponible en el siguiente subdominio:
+
+- **Subdominio de Producción**: [https://nexu.elisalvarez.com/](https://nexu.elisalvarez.com/)
+
+Aquí podrás encontrar la API en su entorno de producción, con todas las funcionalidades activas y accesibles.
+
+<h2 id="autors"> Autores ✒️</h2>
 
 _Este proyecto fue desarrollado para un el puesto de Desarrollador Fullstack Sr._
 
 * **Elisa Álvarez Aguilar** - *Desarrolladora fullstack* - [github](https://github.com/elisalvarez) 
 
-## Agradecimiento por el Feedback 🌟
+<h2 id="feedback"> Agradecimiento por el Feedback 🌟 ✒️</h2>
+
 
 * Valoro cualquier retroalimentación que puedan ofrecerme sobre mi candidatura y el proceso de selección. Esto me ayudará a mejorar y crecer profesionalmente. 📈🤓.
 * ¡Charlemos y tomemos un Café Virtual! ☕️:** ¡Estoy aquí para cualquier pregunta y para compartir ideas! 🍩🎉
